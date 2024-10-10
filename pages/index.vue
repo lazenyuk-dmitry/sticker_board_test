@@ -1,7 +1,9 @@
 <script setup>
 import { useMainStore } from '@/store/main';
 
-const { data } = useMainStore();
+const mainStore = useMainStore();
+const { del } = mainStore;
+const { data, isEdit } = storeToRefs(mainStore);
 const addDialog = ref();
 
 const onAdd = () => {
@@ -17,7 +19,11 @@ const onAdd = () => {
         :key="index"
         cols="4"
       >
-        <AppStickerCard v-model="data[index]"></AppStickerCard>
+        <AppStickerCard
+          v-model="data[index]"
+          :lock="!isEdit"
+          @remove="del(index)"
+        />
       </v-col>
       <v-col
         cols="4"

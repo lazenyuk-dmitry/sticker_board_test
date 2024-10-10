@@ -1,7 +1,17 @@
 <script setup>
 import { useMainStore } from '@/store/main';
 
-const { data } = useMainStore();
+const mainStore = useMainStore();
+const { restore, save } = mainStore;
+const { isEdit } = storeToRefs(mainStore);
+
+onBeforeMount(() => {
+  restore();
+
+  window.addEventListener("beforeunload", (e) => {
+    save();
+  });
+})
 </script>
 
 <template>
@@ -9,7 +19,8 @@ const { data } = useMainStore();
     <v-app>
       <v-app-bar>
         <v-spacer/>
-        <v-btn icon="mdi-pencil" />
+        <v-btn v-if="isEdit" icon="mdi-lock" @click="isEdit = false"/>
+        <v-btn v-else icon="mdi-pencil" @click="isEdit = true"/>
       </v-app-bar>
       <v-main>
         <NuxtPage />

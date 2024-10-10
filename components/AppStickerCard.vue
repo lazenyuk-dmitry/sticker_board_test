@@ -4,9 +4,13 @@ defineProps({
     type: String,
     required: false,
   },
+  lock: {
+    type: Boolean,
+    default: true,
+  }
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'remove']);
 
 const onInput = (e) => {
   emit("update:modelValue", e.target.innerText);
@@ -16,13 +20,12 @@ const onInput = (e) => {
 <template>
   <v-card>
     <template #text>
-      <div contenteditable="true" @input="onInput">{{ modelValue }}</div>
+      <div :contenteditable="!lock" @input="onInput">{{ modelValue }}</div>
     </template>
-    <template #actions>
+    <template v-if="!lock" #actions>
       <v-toolbar density="compact" color="transparent">
         <v-spacer/>
-        <v-btn icon="mdi-check-bold" />
-        <v-btn icon="mdi-pencil" />
+        <v-btn icon="mdi-trash-can" @click="emit('remove')"/>
       </v-toolbar>
     </template>
   </v-card>
