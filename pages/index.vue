@@ -4,11 +4,6 @@ import { useMainStore } from '@/store/main';
 const mainStore = useMainStore();
 const { del } = mainStore;
 const { data, isEdit } = storeToRefs(mainStore);
-const addDialog = ref();
-
-const onAdd = () => {
-  addDialog.value.open();
-}
 </script>
 
 <template>
@@ -25,20 +20,6 @@ const onAdd = () => {
           @remove="del(index)"
         />
       </v-col>
-      <v-col
-        v-if="isEdit"
-        cols="4"
-      >
-        <v-btn
-          height="100"
-          width="100"
-          @click="onAdd"
-        >
-          <v-icon icon="mdi-plus-circle-outline" size="x-large"/>
-        </v-btn>
-      </v-col>
     </v-row>
-
-    <TheAddStickerDialog ref="addDialog"/>
   </v-container>
 </template>

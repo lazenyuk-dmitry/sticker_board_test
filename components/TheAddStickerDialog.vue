@@ -1,8 +1,10 @@
 <script setup>
 import { useMainStore } from '@/store/main';
+import { required } from "@/utils/validation.js";
 
 const { add } = useMainStore();
 const isOpen = ref(false);
+const isValid = ref(false);
 const text = ref("");
 
 const onSave = (e) => {
@@ -26,19 +28,26 @@ defineExpose({
   >
     <v-card
       width="400"
-      prepend-icon="mdi-update"
+      prepend-icon="mdi-pen-plus"
       title="Add new sticker card"
     >
       <template #text>
-        <v-textarea v-model="text" label="Text"></v-textarea>
-      </template>
-      <v-divider></v-divider>
-      <template v-slot:actions>
-        <v-btn
-          class="ms-auto"
-          text="Add"
-          @click="onSave"
-        ></v-btn>
+        <v-form
+          v-model="isValid"
+          @submit.prevent="onSave"
+        >
+          <v-textarea v-model="text" :rules="[required]" label="Text"></v-textarea>
+          <v-divider class="my-4"/>
+          <div class="d-flex justify-end">
+            <v-btn
+              text="Add"
+              size="large"
+              type="submit"
+              :disabled="!isValid"
+            />
+          </div>
+
+        </v-form>
       </template>
     </v-card>
   </v-dialog>
