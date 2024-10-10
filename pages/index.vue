@@ -26,15 +26,16 @@ const onAdd = () => {
         />
       </v-col>
       <v-col
+        v-if="isEdit"
         cols="4"
       >
-        <v-card height="100" link @click="onAdd">
-          <template #text>
-            <span class="text-center">
-              +
-            </span>
-          </template>
-        </v-card>
+        <v-btn
+          height="100"
+          width="100"
+          @click="onAdd"
+        >
+          <v-icon icon="mdi-plus-circle-outline" size="x-large"/>
+        </v-btn>
       </v-col>
     </v-row>
 
