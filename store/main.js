@@ -4,6 +4,7 @@ import { setItem, getItem } from "@/utils/localStore";
 const LOCAL_DATA_KEY = "localDataKey";
 
 export const useMainStore = defineStore('mainStore', () => {
+  const broadCast = new BroadcastChannel('mainStore');
   const data = ref([
     "Card 1",
     "Card 2"
@@ -19,8 +20,21 @@ export const useMainStore = defineStore('mainStore', () => {
     }
   }
 
+  // Sync beetwin tabs. Handle message.
+  broadCast.onmessage = (e) => {
+    if (e.target.name === 'mainStore') {
+      data.value = e.data.data;
+    }
+  };
+
   const save = () => {
     setItem(LOCAL_DATA_KEY, data.value);
+
+    // Sync beetwin tabs. Send message.
+    broadCast.postMessage({
+      type: 'dataChange',
+      data: [...data.value],
+    });
   }
 
   const add = (text) => {
