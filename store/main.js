@@ -19,6 +19,7 @@ export const useMainStore = defineStore('mainStore', () => {
       data.value = localData;
     }
   }
+  restore();
 
   // Sync beetwin tabs. Handle message.
   broadCast.onmessage = (e) => {
@@ -47,6 +48,11 @@ export const useMainStore = defineStore('mainStore', () => {
     save();
   }
 
+  const changeCard = (index, text) => {
+    data.value[index] = text;
+    save();
+  }
+
   return {
     isEdit,
     data,
@@ -54,5 +60,6 @@ export const useMainStore = defineStore('mainStore', () => {
     add,
     del,
     restore,
+    changeCard,
   }
 })

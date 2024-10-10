@@ -2,7 +2,7 @@
 import { useMainStore } from '@/store/main';
 
 const mainStore = useMainStore();
-const { del } = mainStore;
+const { del, changeCard } = mainStore;
 const { data, isEdit } = storeToRefs(mainStore);
 </script>
 
@@ -15,8 +15,9 @@ const { data, isEdit } = storeToRefs(mainStore);
         cols="4"
       >
         <AppStickerCard
-          v-model="data[index]"
           :lock="!isEdit"
+          :value="card"
+          @input="changeCard(index, $event)"
           @remove="del(index)"
         />
       </v-col>

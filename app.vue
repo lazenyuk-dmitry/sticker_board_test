@@ -2,21 +2,12 @@
 import { useMainStore } from '@/store/main';
 
 const mainStore = useMainStore();
-const { restore, save } = mainStore;
 const { isEdit } = storeToRefs(mainStore);
 const addDialog = ref();
 
 const onAdd = () => {
   addDialog.value.open();
 }
-
-onBeforeMount(() => {
-  restore();
-
-  window.addEventListener("beforeunload", (e) => {
-    save();
-  });
-})
 </script>
 
 <template>

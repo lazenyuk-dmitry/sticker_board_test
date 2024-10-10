@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  modelValue: {
+  value: {
     type: String,
     required: false,
   },
@@ -10,11 +10,11 @@ defineProps({
   }
 });
 
-const emit = defineEmits(['update:modelValue', 'remove']);
+const emit = defineEmits(['input', 'remove']);
 const input = ref();
 
 const onInput = (e) => {
-  emit("update:modelValue", e.target.innerText);
+  emit("input", e.target.innerText);
 }
 </script>
 
@@ -27,7 +27,7 @@ const onInput = (e) => {
         @input="onInput"
         @keypress.enter="input.blur()"
       >
-        {{ modelValue }}
+        {{ value }}
       </div>
     </v-card-text>
     <template v-if="!lock" #actions>
