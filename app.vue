@@ -1,3 +1,9 @@
+<script setup>
+import { useMainStore } from '@/store/main';
+
+const { data } = useMainStore();
+</script>
+
 <template>
   <NuxtLayout>
     <v-app>
