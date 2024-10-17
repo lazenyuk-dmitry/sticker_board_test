@@ -16,6 +16,10 @@ const open = () => {
   isOpen.value = true;
 }
 
+const afterLeave = () => {
+  text.value = "";
+}
+
 defineExpose({
   open,
 });
@@ -25,6 +29,7 @@ defineExpose({
   <v-dialog
     v-model="isOpen"
     width="auto"
+    @after-leave="afterLeave"
   >
     <v-card
       width="400"
