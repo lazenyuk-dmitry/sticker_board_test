@@ -1,4 +1,6 @@
 <script setup>
+import { debounce } from "@/utils";
+
 defineProps({
   value: {
     type: String,
@@ -16,6 +18,7 @@ const input = ref();
 const onInput = (e) => {
   emit("input", e.target.innerText);
 }
+const debouncedInput = debounce((e) => onInput(e), 300);
 </script>
 
 <template>
@@ -24,7 +27,7 @@ const onInput = (e) => {
       <div ref="input"
         class="pa-3 text-subtitle-2 text-center"
         :contenteditable="!lock"
-        @input="onInput"
+        @input="debouncedInput"
         @keypress.enter="input.blur()"
       >
         {{ value }}
