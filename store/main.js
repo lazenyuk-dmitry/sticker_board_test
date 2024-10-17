@@ -53,8 +53,8 @@ export const useMainStore = defineStore('mainStore', () => {
   }
 
   const changeCard = (index, text) => {
+    historyStore.add(index, data.value[index], ACTIONS.EDIT);
     data.value[index] = text;
-    historyStore.add(index, text, ACTIONS.EDIT);
     save();
   }
 

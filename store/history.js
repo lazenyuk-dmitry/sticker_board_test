@@ -59,7 +59,7 @@ class HistoryItemEdit extends HistoryItem {
     target[this.index] = this.data;
   }
 
-  undo() {
+  undo(target) {
     target[this.index] = this.previousState;
   }
 }
@@ -86,7 +86,7 @@ export const useHistoryStore = defineStore('historyStore', () => {
   const currentIndex = ref(-1);
 
   const add = (index, text, action) => {
-    history.value = history.value.slice(0, currentIndex.value);
+    history.value = history.value.slice(0, currentIndex.value + 1);
     const length = history.value.push(historyFabric.create(index, text, action));
     currentIndex.value = length - 1;
   };
