@@ -1,4 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Доска со стикерами
+
+Стикеры можно удалять и добавлять, и редактировать, в режиме редактирования. Есть синхронизация между вкладками браузера.
+
+- Nuxt 3
+- Vuetify
+- BroadcastChannel 
 
 [LiveDemo](https://lazenyuk-dmitry.github.io/sticker_board_test/)
 
